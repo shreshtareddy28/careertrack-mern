@@ -20,10 +20,12 @@ function Register(){
     e.preventDefault()
 
     try{
-      await axios.post("http://localhost:5173/api/auth/register",form)
+      await axios.post("http://localhost:3001/api/auth/register",form)
       alert("Registered Successfully")
       navigate("/login")
     }catch(error){
+      console.log("FULL ERROR:", error)
+      console.log("RESPONSE:", error.response)
       alert(error.response?.data?.message || "Error")
     }
   }
