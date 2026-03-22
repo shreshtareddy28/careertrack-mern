@@ -1,30 +1,29 @@
 import { useState } from "react"
 import axios from "axios"
 
-function AddApplication({refresh}){
+function AddApplication({ refresh }) {
 
-  const [form,setForm] = useState({
-    company:"",
-    role:"",
-    status:"Applied"
+  const [form, setForm] = useState({
+    company: "",
+    role: "",
+    status: "Applied"
   })
 
-  const handleChange = (e)=>{
-    setForm({...form,[e.target.name]:e.target.value})
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    try{
+    try {
       const token = localStorage.getItem("token")
-      console.log("TOKEN:", token)
 
       await axios.post(
         "http://localhost:3001/api/applications",
-        form,
+        form,   
         {
-          headers:{
+          headers: {
             Authorization: `Bearer ${token}`
           }
         }
@@ -32,17 +31,21 @@ function AddApplication({refresh}){
 
       alert("Application Added")
 
-      setForm({company:"",role:"",status:"Applied"})
+      setForm({   
+        company: "",
+        role: "",
+        status: "Applied"
+      })
 
-      refresh() // refresh dashboard
+      refresh() 
 
-    }catch(error){
-      console.log(error.response.data)
+    } catch (error) {
+      console.log(error)
       alert("Error adding application")
     }
   }
 
-  return(
+  return (
     <div>
       <h3>Add Application</h3>
 

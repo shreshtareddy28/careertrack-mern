@@ -14,6 +14,9 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.get("/", (req, res) => {
+  res.send("CareerTrack API is running ")
+})
 app.use("/api/auth", authRoutes)
 app.use("/api/test", testRoutes)
 app.use("/api/applications", applicationRoutes)
