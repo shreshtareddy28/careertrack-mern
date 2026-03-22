@@ -35,5 +35,5 @@ A full-stack web application to track and manage job applications with real-time
 
 ### 1. Clone repo
 ```bash
-git clone https://github.com/your-username/careertrack-mern.git
+git clone https://github.com/shreshtareddy28/careertrack-mern.git
 cd careertrack-mern
