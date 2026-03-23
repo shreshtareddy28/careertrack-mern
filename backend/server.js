@@ -12,17 +12,19 @@ connectDB()
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}))
+app.options("*", cors())
 app.use(express.json())
-app.get("/", (req, res) => {
-  res.send("CareerTrack API is running ")
-})
+
 app.use("/api/auth", authRoutes)
 app.use("/api/test", testRoutes)
 app.use("/api/applications", applicationRoutes)
-
-app.get("/", (req,res)=>{
-   res.send("CareerTrack Backend Running")
+app.get("/", (req, res) => {
+  res.send("CareerTrack API is running ")
 })
 
 const PORT = process.env.PORT || 3001

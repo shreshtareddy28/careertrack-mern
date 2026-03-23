@@ -17,7 +17,7 @@ function Dashboard(){
       const token = localStorage.getItem("token")
 
       const res = await axios.get(
-        "http://localhost:3001/api/applications",
+        "https://careertrack-backend.onrender.com/api/applications",
         {
           headers:{
             Authorization: `Bearer ${token}`
@@ -42,7 +42,7 @@ const handleDelete = async (id)=>{
     const token = localStorage.getItem("token")
 
     await axios.delete(
-      `http://localhost:3001/api/applications/${id}`,
+      `https://careertrack-backend.onrender.com/api/applications/${id}`,
       {
         headers:{
           Authorization: `Bearer ${token}`
@@ -64,7 +64,7 @@ const handleUpdate = async(id, status)=>{
     const token = localStorage.getItem("token")
 
     await axios.put(
-      `http://localhost:3001/api/applications/${id}`,
+      `https://careertrack-backend.onrender.com/api/applications/${id}`,
       { status },
       {
         headers:{
