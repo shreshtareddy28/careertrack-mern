@@ -24,7 +24,7 @@ function Login(){
         form
       )
 
-      // store token
+      
       localStorage.setItem("token",res.data.token)
 
       alert("Login Successful")

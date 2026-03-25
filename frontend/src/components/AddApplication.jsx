@@ -26,7 +26,7 @@ function AddApplication({ refresh }) {
       const token = localStorage.getItem("token")
 
       await axios.post(
-        "http://localhost:3001/api/applications",
+        `${import.meta.env.VITE_API_URL}/api/applications`,
         form,
         {
           headers: {

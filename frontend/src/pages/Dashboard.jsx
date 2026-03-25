@@ -45,7 +45,7 @@ function Dashboard(){
       const token = localStorage.getItem("token")
 
       const res = await axios.get(
-        "http://localhost:3001/api/applications",
+        `${import.meta.env.VITE_API_URL}/api/applications`,
         {
           headers:{
             Authorization: `Bearer ${token}`
@@ -74,7 +74,7 @@ function Dashboard(){
       const token = localStorage.getItem("token")
 
       await axios.delete(
-        `http://localhost:3001/api/applications/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/applications/${id}`,
         {
           headers:{
             Authorization: `Bearer ${token}`
@@ -94,7 +94,7 @@ function Dashboard(){
       const token = localStorage.getItem("token")
 
       await axios.put(
-        `http://localhost:3001/api/applications/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/applications/${id}`,
         { status },
         {
           headers:{
@@ -127,7 +127,6 @@ function Dashboard(){
     return 0
   })
 
-  // 🎨 GOOGLE-LIKE BLUE THEME
   const container = {
     maxWidth: "950px",
     margin: "auto",
