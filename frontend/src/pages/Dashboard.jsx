@@ -1,6 +1,16 @@
+const navigate = useNavigate()
+
+useEffect(() => {
+  const token = localStorage.getItem("token")
+  if (!token) {
+    navigate("/login")
+  }
+}, [])
+
 import { useEffect, useState } from "react"
 import axios from "axios"
 import AddApplication from "../components/AddApplication"
+import { useNavigate } from "react-router-dom"
 
 function Dashboard(){
 
@@ -17,9 +27,14 @@ function Dashboard(){
   const [sort, setSort] = useState("latest")
   const [loading, setLoading] = useState(true)
 
-  useEffect(()=>{
-    fetchApplications()
-  },[])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+  const token = localStorage.getItem("token")
+  if (!token) {
+    navigate("/login")
+  }
+}, [])
 
   const fetchStats = (appsData) => {
     let newStats = {
@@ -53,10 +68,8 @@ function Dashboard(){
         }
       )
 
-      if (res && res.data) {
-        setApps(res.data)
-        fetchStats(res.data)
-      }
+      setApps(res.data)
+      fetchStats(res.data)
 
     }catch(error){
       console.log(error?.response?.data || error.message)
@@ -110,6 +123,11 @@ function Dashboard(){
     }
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    navigate("/login")
+  }
+
   const filteredApps = apps.filter(app => {
     return (
       app.company.toLowerCase().includes(search.toLowerCase()) &&
@@ -127,166 +145,182 @@ function Dashboard(){
     return 0
   })
 
-  const container = {
-    maxWidth: "950px",
-    margin: "auto",
-    padding: "30px",
-    fontFamily: "Arial, sans-serif",
-    background: "#f1f3f4",
-    minHeight: "100vh"
-  }
-
-  const header = {
-    textAlign: "center",
-    marginBottom: "25px",
-    color: "#1a73e8"
-  }
-
-  const statsContainer = {
-    display: "flex",
-    gap: "15px",
-    justifyContent: "space-between"
-  }
-
-  const cardStyle = {
-    flex: 1,
-    padding: "18px",
-    background: "#ffffff",
-    borderRadius: "10px",
-    textAlign: "center",
-    fontWeight: "bold",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-    borderTop: "4px solid #1a73e8"
-  }
-
-  const controls = {
-    marginTop: "30px",
-    display: "flex",
-    gap: "10px"
-  }
-
-  const inputStyle = {
-    flex: 1,
-    padding: "10px",
-    borderRadius: "8px",
-    border: "1px solid #ccc"
-  }
-
-  const selectStyle = {
-    padding: "10px",
-    borderRadius: "8px",
-    border: "1px solid #ccc"
-  }
-
-  const appCard = {
-    padding: "20px",
-    margin: "15px 0",
-    borderRadius: "10px",
-    background: "#ffffff",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-  }
-
-  const deleteBtn = {
-    marginLeft: "10px",
-    padding: "8px 12px",
-    background: "#d93025",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer"
-  }
-
   if (loading) {
-    return <h2 style={{textAlign:"center"}}>Loading...</h2>
+    return <h2 style={{textAlign:"center", marginTop:"50px"}}>Loading...</h2>
   }
 
   return(
-  <div style={container}>
+    <div style={{background:"#f1f3f4", minHeight:"100vh"}}>
 
-    <h1 style={header}>CareerTrack Dashboard</h1>
+      {/* NAVBAR */}
+      <div style={{
+        background:"#1a73e8",
+        color:"white",
+        padding:"15px 30px",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems:"center"
+      }}>
+        <h2 style={{margin:0}}>CareerTrack</h2>
+        <button onClick={handleLogout} style={{
+          background:"white",
+          color:"#1a73e8",
+          border:"none",
+          padding:"8px 14px",
+          borderRadius:"6px",
+          cursor:"pointer"
+        }}>
+          Logout
+        </button>
+      </div>
 
-    {/* STATS */}
-    <div style={statsContainer}>
-      <div style={cardStyle}>Applied: {stats.Applied}</div>
-      <div style={cardStyle}>Interview: {stats.Interview}</div>
-      <div style={cardStyle}>Rejected: {stats.Rejected}</div>
-      <div style={cardStyle}>Offer: {stats.Offer}</div>
-    </div>
+      <div style={{
+        maxWidth:"1000px",
+        margin:"auto",
+        padding:"30px"
+      }}>
 
-    {/* CONTROLS */}
-    <div style={controls}>
-      <input
-        placeholder="Search company..."
-        value={search}
-        onChange={(e)=>setSearch(e.target.value)}
-        style={inputStyle}
-      />
+        {/* HEADER */}
+        <h1 style={{
+          textAlign:"center",
+          color:"#1a73e8",
+          marginBottom:"25px"
+        }}>
+          Dashboard
+        </h1>
 
-      <select onChange={(e)=>setFilter(e.target.value)} style={selectStyle}>
-        <option>All</option>
-        <option>Applied</option>
-        <option>Interview</option>
-        <option>Rejected</option>
-        <option>Offer</option>
-      </select>
+        {/* STATS */}
+        <div style={{
+          display:"flex",
+          gap:"15px",
+          marginBottom:"30px"
+        }}>
+          <StatCard title="Applied" value={stats.Applied} color="#4285F4"/>
+          <StatCard title="Interview" value={stats.Interview} color="#FBBC05"/>
+          <StatCard title="Rejected" value={stats.Rejected} color="#EA4335"/>
+          <StatCard title="Offer" value={stats.Offer} color="#34A853"/>
+        </div>
 
-      <select onChange={(e)=>setSort(e.target.value)} style={selectStyle}>
-        <option value="latest">Latest</option>
-        <option value="company">Company</option>
-      </select>
-    </div>
+        {/* CONTROLS */}
+        <div style={{
+          display:"flex",
+          gap:"10px",
+          marginBottom:"25px"
+        }}>
+          <input
+            placeholder="Search company..."
+            value={search}
+            onChange={(e)=>setSearch(e.target.value)}
+            style={inputStyle}
+          />
 
-    {/* ADD */}
-    <div style={{marginTop:"30px"}}>
-      <AddApplication refresh={refresh}/>
-    </div>
+          <select onChange={(e)=>setFilter(e.target.value)} style={inputStyle}>
+            <option>All</option>
+            <option>Applied</option>
+            <option>Interview</option>
+            <option>Rejected</option>
+            <option>Offer</option>
+          </select>
 
-    {/* LIST */}
-    <div style={{marginTop:"30px"}}>
-      {sortedApps.length === 0 ? (
-        <p style={{textAlign:"center"}}>No applications found</p>
-      ) : (
-        sortedApps.map((app)=>(
-          <div key={app._id} style={appCard}>
+          <select onChange={(e)=>setSort(e.target.value)} style={inputStyle}>
+            <option value="latest">Latest</option>
+            <option value="company">Company</option>
+          </select>
+        </div>
 
-            <div>
-              <h3 style={{margin:"0"}}>{app.company}</h3>
-              <p style={{margin:"5px 0"}}>{app.role}</p>
-              <p style={{fontSize:"12px", color:"gray"}}>
-                {app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ""}
-              </p>
+        {/* ADD */}
+        <div style={{marginBottom:"30px"}}>
+          <AddApplication refresh={refresh}/>
+        </div>
+
+        {/* LIST */}
+        {sortedApps.length === 0 ? (
+          <p style={{textAlign:"center", color:"gray"}}>
+            No applications found
+          </p>
+        ) : (
+          sortedApps.map((app)=>(
+            <div key={app._id} style={cardStyle}>
+
+              <div>
+                <h3 style={{margin:"0"}}>{app.company}</h3>
+                <p style={{margin:"5px 0"}}>{app.role}</p>
+                <p style={{fontSize:"12px", color:"gray"}}>
+                  {app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ""}
+                </p>
+              </div>
+
+              <div>
+                <select
+                  value={app.status}
+                  onChange={(e)=>handleUpdate(app._id, e.target.value)}
+                  style={inputStyle}
+                >
+                  <option>Applied</option>
+                  <option>Interview</option>
+                  <option>Rejected</option>
+                  <option>Offer</option>
+                </select>
+
+                <button 
+                  onClick={()=>handleDelete(app._id)}
+                  style={deleteBtn}
+                >
+                  Delete
+                </button>
+              </div>
+
             </div>
+          ))
+        )}
 
-            <div>
-              <select
-                value={app.status}
-                onChange={(e)=>handleUpdate(app._id, e.target.value)}
-                style={selectStyle}
-              >
-                <option>Applied</option>
-                <option>Interview</option>
-                <option>Rejected</option>
-                <option>Offer</option>
-              </select>
-
-              <button 
-                onClick={()=>handleDelete(app._id)}
-                style={deleteBtn}
-              >
-                Delete
-              </button>
-            </div>
-
-          </div>
-        ))
-      )}
+      </div>
     </div>
+  )
+}
 
+/* 🔹 Reusable Components */
+
+const StatCard = ({title, value, color}) => (
+  <div style={{
+    flex:1,
+    background:"white",
+    padding:"20px",
+    borderRadius:"10px",
+    textAlign:"center",
+    boxShadow:"0 2px 6px rgba(0,0,0,0.1)",
+    borderTop:`4px solid ${color}`
+  }}>
+    <p style={{margin:0, color:"gray"}}>{title}</p>
+    <h2 style={{margin:"5px 0"}}>{value}</h2>
   </div>
 )
+
+const inputStyle = {
+  padding:"10px",
+  borderRadius:"8px",
+  border:"1px solid #ccc"
+}
+
+const cardStyle = {
+  padding:"20px",
+  marginBottom:"15px",
+  borderRadius:"10px",
+  background:"#ffffff",
+  display:"flex",
+  justifyContent:"space-between",
+  alignItems:"center",
+  boxShadow:"0 2px 6px rgba(0,0,0,0.1)"
+}
+
+const deleteBtn = {
+  marginLeft:"10px",
+  padding:"8px 12px",
+  background:"#EA4335",
+  color:"white",
+  border:"none",
+  borderRadius:"6px",
+  cursor:"pointer"
 }
 
 export default Dashboard
