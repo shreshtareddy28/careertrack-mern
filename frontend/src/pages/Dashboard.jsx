@@ -186,7 +186,7 @@ function Dashboard(){
         <h1 style={{
           textAlign:"center",
           color:"#1a73e8",
-          marginBottom:"25px"
+          marginBottom:"24px"
         }}>
           Dashboard
         </h1>
