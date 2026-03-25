@@ -35,11 +35,11 @@ function Home() {
       </p>
 
       <div style={{marginTop:"30px"}}>
-        <Link to="/Login">
+        <Link to="/login">
           <button style={btn}>Login</button>
         </Link>
 
-        <Link to="/Register">
+        <Link to="/register">
           <button style={{...btn, background:"#34A853"}}>
             Register
           </button>
@@ -62,20 +62,20 @@ function App(){
 
         {/* Auth */}
         <Route 
-          path="/Login" 
-          element={isLoggedIn ? <Navigate to="/Dashboard" /> : <Login />} 
+          path="/login" 
+          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} 
         />
 
         <Route 
-          path="/Register" 
-          element={isLoggedIn ? <Navigate to="/Dashboard" /> : <Register />} 
+          path="/register" 
+          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register />} 
         />
 
         {/* Protected */}
         <Route 
-          path="/Dashboard" 
+          path="/dashboard" 
           element={
-            isLoggedIn ? <Dashboard /> : <Navigate to="/Login" />
+            isLoggedIn ? <Dashboard /> : <Navigate to="/login" />
           } 
         />
 
