@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom"
 import Register from "./pages/Register"
-import Login from "./pages/login"
+import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 
 function Home() {
@@ -35,11 +35,11 @@ function Home() {
       </p>
 
       <div style={{marginTop:"30px"}}>
-        <Link to="/login">
+        <Link to="/Login">
           <button style={btn}>Login</button>
         </Link>
 
-        <Link to="/register">
+        <Link to="/Register">
           <button style={{...btn, background:"#34A853"}}>
             Register
           </button>
@@ -62,20 +62,20 @@ function App(){
 
         {/* Auth */}
         <Route 
-          path="/login" 
-          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} 
+          path="/Login" 
+          element={isLoggedIn ? <Navigate to="/Dashboard" /> : <Login />} 
         />
 
         <Route 
-          path="/register" 
-          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register />} 
+          path="/Register" 
+          element={isLoggedIn ? <Navigate to="/Dashboard" /> : <Register />} 
         />
 
         {/* Protected */}
         <Route 
-          path="/dashboard" 
+          path="/Dashboard" 
           element={
-            isLoggedIn ? <Dashboard /> : <Navigate to="/login" />
+            isLoggedIn ? <Dashboard /> : <Navigate to="/Login" />
           } 
         />
 

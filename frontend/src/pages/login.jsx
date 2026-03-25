@@ -28,7 +28,7 @@ function Login(){
 
       alert("Login Successful")
 
-      navigate("/dashboard")
+      navigate("/Dashboard")
 
     }catch(error){
       console.log("FULL ERROR:", error)

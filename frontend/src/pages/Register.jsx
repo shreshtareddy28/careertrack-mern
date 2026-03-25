@@ -26,7 +26,7 @@ function Register(){
       )
 
       alert("Registered Successfully")
-      navigate("/login")
+      navigate("/Login")
 
     }catch(error){
       console.log("FULL ERROR:", error)
@@ -126,7 +126,7 @@ function Register(){
           Already have an account?{" "}
           <span 
             style={{color:"#1a73e8", cursor:"pointer"}}
-            onClick={()=>navigate("/login")}
+            onClick={()=>navigate("/Login")}
           >
             Login
           </span>

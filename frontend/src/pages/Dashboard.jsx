@@ -1,16 +1,18 @@
+import { useEffect, useState } from "react"
+import axios from "axios"
+import AddApplication from "../components/AddApplication"
+import { useNavigate } from "react-router-dom"
+
+
+
 const navigate = useNavigate()
 
 useEffect(() => {
   const token = localStorage.getItem("token")
   if (!token) {
-    navigate("/login")
+    navigate("/Login")
   }
 }, [])
-
-import { useEffect, useState } from "react"
-import axios from "axios"
-import AddApplication from "../components/AddApplication"
-import { useNavigate } from "react-router-dom"
 
 function Dashboard(){
 
@@ -32,7 +34,7 @@ function Dashboard(){
   useEffect(() => {
   const token = localStorage.getItem("token")
   if (!token) {
-    navigate("/login")
+    navigate("/Login")
   }
 }, [])
 
@@ -125,7 +127,7 @@ function Dashboard(){
 
   const handleLogout = () => {
     localStorage.removeItem("token")
-    navigate("/login")
+    navigate("/Login")
   }
 
   const filteredApps = apps.filter(app => {
@@ -279,7 +281,6 @@ function Dashboard(){
   )
 }
 
-/* 🔹 Reusable Components */
 
 const StatCard = ({title, value, color}) => (
   <div style={{
