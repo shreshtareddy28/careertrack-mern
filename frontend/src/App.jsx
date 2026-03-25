@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom"
+import {  Routes, Route, Navigate, Link } from "react-router-dom"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
@@ -54,7 +54,7 @@ function App(){
   const isLoggedIn = localStorage.getItem("token")
 
   return(
-    <BrowserRouter>
+    
       <Routes>
 
         {/* Home */}
@@ -83,7 +83,7 @@ function App(){
         <Route path="*" element={<Navigate to="/" />} />
 
       </Routes>
-    </BrowserRouter>
+    
   )
 }
 
