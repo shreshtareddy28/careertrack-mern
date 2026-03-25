@@ -20,7 +20,7 @@ function Register(){
     e.preventDefault()
 
     try{
-      await axios.post("https://careertrack-backend.onrender.com/api/auth/register",form)
+      await axios.post("http://localhost:3001/api/auth/register",form)
       alert("Registered Successfully")
       navigate("/login")
     }catch(error){
