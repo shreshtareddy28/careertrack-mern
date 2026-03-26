@@ -28,13 +28,14 @@ function Login(){
 
       alert("Login Successful")
 
-      navigate("/Dashboard")
+      navigate("/dashboard")
 
     }catch(error){
       console.log("FULL ERROR:", error)
-      console.log("RESPONSE:", error.response)
+      const message=error.response?.data?.message || error.message || "Something went wrong"
+      alert(message)
 
-      alert(error?.response?.data?.message || "Invalid credentials")
+      
     }
   }
 
