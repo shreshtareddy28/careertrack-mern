@@ -1,4 +1,11 @@
- function App(){
-  return <h1>Working</h1>
- }
- export default App;
+ import { Routes, Route } from "react-router-dom"
+
+function App(){
+  return(
+    <Routes>
+      <Route path="/" element={<h1>HOME ✅</h1>} />
+    </Routes>
+  )
+}
+
+export default App
