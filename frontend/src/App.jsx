@@ -3,7 +3,7 @@
 function App(){
   return(
     <Routes>
-      <Route path="/" element={<h1>HOME ✅</h1>} />
+      <Route path="/" element={<Home />} />
     </Routes>
   )
 }
